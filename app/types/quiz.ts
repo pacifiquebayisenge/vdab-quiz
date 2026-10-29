@@ -28,3 +28,19 @@ export interface ApiQuizQuestion {
   time_limit_s: number;
   answers: ApiQuizAnswer[];
 }
+
+// Answers sent by the client when submitting.
+export interface SubmitAnswersRequest {
+  questionId: string;
+  selectedAnswerIds: string[];
+}
+
+// Validation result returned by the server.
+// Only sent after the user submits their answers.
+// isCorrect indicates whether the user's selected answers are all correct.
+export interface SubmitAnswersResponse {
+  questionId: string;
+  isCorrect: boolean;
+  correctAnswerIds: string[];
+  incorrectSelectedIds: string[];
+}
