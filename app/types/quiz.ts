@@ -1,17 +1,17 @@
 // answer option exposed to the client.
 // The correct answer is intentionally not included.
-export interface QuizAnswer {
+export interface PublicQuizAnswer {
   id: string;
   answer: string;
 }
 
 // quiz question sent to the client.
 // Contains only the information required to display the question.
-export interface QuizQuestion {
+export interface PublicQuizQuestion {
   id: string;
   question: string;
   time_limit_s: number;
-  answers: QuizAnswer[];
+  answers: PublicQuizAnswer[];
 }
 
 // answer option returned by the  API.
@@ -31,6 +31,7 @@ export interface ApiQuizQuestion {
 
 // Answers sent by the client when submitting.
 export interface SubmitAnswersRequest {
+  sessionId: string;
   questionId: string;
   selectedAnswerIds: string[];
 }

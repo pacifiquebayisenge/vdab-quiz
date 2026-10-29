@@ -1,4 +1,4 @@
-import type { ApiQuizQuestion, QuizQuestion } from "~~/app/types/quiz";
+import type { ApiQuizQuestion, PublicQuizQuestion } from "~~/app/types/quiz";
 import { saveQuizSession } from "../utils/quizSession";
 import { v4 as uuid } from "uuid";
 
@@ -8,7 +8,7 @@ import { v4 as uuid } from "uuid";
 // Returns an array of QuizQuestion objects, each containing the question text, time limit, and answer options.
 
 export default defineEventHandler(
-  async (): Promise<{ sessionId: string; questions: QuizQuestion[] }> => {
+  async (): Promise<{ sessionId: string; questions: PublicQuizQuestion[] }> => {
     const config = useRuntimeConfig();
 
     // Fetch questions from the external API.
@@ -21,7 +21,7 @@ export default defineEventHandler(
     await saveQuizSession(sessionId, questions);
 
     // Transform the questions before sending them to the client.
-    const publicQuestions: QuizQuestion[] = questions.map(
+    const publicQuestions: PublicQuizQuestion[] = questions.map(
       (question, questionIndex) => ({
         id: `q-${questionIndex + 1}`,
         question: question.question,

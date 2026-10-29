@@ -8,22 +8,18 @@ import {
   checkAnswers,
 } from "../utils/quizHelpers";
 
-// API endpoint to submit quiz answers for evaluation.
-// Validates the request body, checks the submitted answers against the correct answers,
-// and returns a response indicating whether the submission is correct or not.
-// The response includes the question ID, correctness status, correct answer IDs, and any incorrect selections.
-// The correct answers are not exposed to the client to prevent cheating.
-// The endpoint expects a POST request with a JSON body containing the question ID and selected answer IDs.
-// The request body is validated to ensure it has the correct structure and that the selected answer IDs are valid for the given question.
-// If the request is invalid or the question is not found, an error response is returned with the appropriate status code and message.
-// The endpoint uses helper functions to find the question, validate the submission, retrieve correct answers, and check the answers against the correct ones.
+import { getQuizSession } from "../utils/quizSession";
+
+// Validates submitted answers using the quiz session stored in Nitro.
+// Returns the validation result and correct answer IDs.
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<SubmitAnswersRequest>(event);
 
-  // Validate the request structure before accessing its properties.
+  // Validate the request
   if (
     !body ||
+    typeof body.sessionId !== "string" ||
     typeof body.questionId !== "string" ||
     !Array.isArray(body.selectedAnswerIds)
   ) {
@@ -33,16 +29,35 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // Find the requested question.
-  const question = findQuestion(body.questionId);
+  // Retrieve the original questions from Nitro Storage.
+  const apiQuestions = await getQuizSession(body.sessionId);
 
-  // Validate the submitted answers.
-  const validAnswerIds = getAnswerIds(question);
+  if (!apiQuestions) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Quiz session not found",
+    });
+  }
+
+  // Find the requested question in the original api questions.
+  const apiQuestion = apiQuestions.find(
+    (_, index) => `q-${index + 1}` === body.questionId,
+  );
+
+  if (!apiQuestion) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Question not found",
+    });
+  }
+
+  // Validate the selected answer IDs.
+  const validAnswerIds = getAnswerIds(apiQuestion);
 
   validateSubmission(body, validAnswerIds);
 
-  // Retrieve correct answers and calculate the result.
-  const correctAnswerIds = getCorrectAnswerIds(question);
+  // Check the answers against the original data.
+  const correctAnswerIds = getCorrectAnswerIds(apiQuestion);
 
   return checkAnswers(
     body.questionId,
