@@ -1,3 +1,26 @@
+:root {
+    --color-blue-dark: #004475;
+    --color-blue-medium: #2D89CC;
+    --color-blue-light: #C2E2FE;
+
+    --color-yellow: #FFE200;
+    --color-yellow-dark: #E1B827;
+
+    --color-grey-light: #E3E5E7;
+    --color-grey-dark: #9097A0;
+
+    --color-white: #ffffff;
+
+
+    --color-background: #252e50;
+
+    --color-success: #17A500;
+    --color-error: #F05535;
+
+    --color-text: #004475;
+
+}
+
 @font-face {
     font-family: "Flanders Art Sans";
     src: url("/fonts/FlandersArtSans-Regular.woff") format("woff");
@@ -21,6 +44,8 @@
     font-style: normal;
     font-display: swap;
 }
+
+
 
 body {
     font-family: "Flanders Art Sans", sans-serif;

@@ -1,6 +1,14 @@
 <template>
   <button type="button" :disabled="disabled" class="answer-option">
-    {{ label }}
+    <div class="button-content">
+      {{ label }}
+    </div>
+  </button>
+
+  <button type="button" :disabled="disabled" class="action-button">
+    <div class="button-content">
+      {{ label }}
+    </div>
   </button>
 </template>
 
@@ -16,62 +24,107 @@ defineEmits<{
 </script>
 
 <style lang="scss" scoped>
-.answer-option {
-  /* Button selection */
-
-  /* Auto layout */
+.answer-option,
+.action-button {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+
+  .button-content {
+    font-family: "Flanders Art Sans Bold", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-blue-dark);
+    flex: none;
+  }
+}
+
+.answer-option {
   padding: 16px 32px;
   gap: 26px;
 
   width: 300px;
   height: 56px;
 
-  border-radius: 8px;
-
   flex: none;
   order: 0;
   flex-grow: 0;
 
-  background: #c2e2fe;
-  color: #004475;
-
-  font-family: "Flanders Art Sans Bold", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  /* identical to box height */
-  text-align: center;
+  background: var(--color-blue-light);
 
   cursor: pointer;
 
-  &:hover,
-  &-selected {
-    background: #2d89cc;
-    color: #ffffff;
+  .button-content {
+    font-size: 20px;
+    line-height: 24px;
+
+    order: 0;
+    flex-grow: 1;
   }
 
-  &-selected {
-    border: 2px solid #ffe200;
+  &:hover,
+  &.selected {
+    background: var(--color-blue-medium);
+
+    .button-content {
+      color: var(--color-white);
+    }
+  }
+
+  &.selected {
+    border: 2px solid var(--color-yellow);
     order: 1;
   }
 
-  &-correct {
-    background: #ffffff;
-    border: 3px solid #17a500;
+  &.correct {
+    background: var(--color-white);
+    border: 3px solid var(--color-success);
     order: 0;
   }
 
-  &-wrong {
-    background: #ffffff;
-    border: 3px solid #f05535;
+  &.wrong {
+    background: var(--color-white);
+    border: 3px solid var(--color-error);
     order: 1;
+  }
+}
 
-    color: #004475;
+.action-button {
+  font-family: "Flanders Art Sans Bold", sans-serif;
+
+  cursor: pointer;
+  width: 400px;
+  height: 48px;
+  padding: 12px 64px;
+  gap: 12px;
+
+  background: var(--color-yellow);
+  position: relative;
+
+  .button-content {
+    font-size: 16px;
+    line-height: 24px;
+
+    order: 1;
+    flex-grow: 0;
+  }
+
+  &::after {
+    width: 400px;
+    height: 48px;
+    position: absolute;
+    top: 4px;
+    background: var(--color-yellow-dark);
+    content: "";
+    z-index: -1;
+    border-radius: 8px;
   }
 }
 </style>
