@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Flanders Art Sans";
+    src: url("/fonts/FlandersArtSans-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans";
+    src: url("/fonts/FlandersArtSans-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans";
+    src: url("/fonts/FlandersArtSans-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: "Flanders Art Sans", sans-serif;
+}
