@@ -104,8 +104,7 @@ defineEmits<{
   height: 48px;
   padding: 12px 64px;
   gap: 12px;
-
-  background: var(--color-yellow);
+  background: var(--color-white);
   position: relative;
 
   .button-content {
@@ -121,10 +120,40 @@ defineEmits<{
     height: 48px;
     position: absolute;
     top: 4px;
-    background: var(--color-yellow-dark);
     content: "";
     z-index: -1;
     border-radius: 8px;
+    background: var(--color-grey);
+  }
+
+  &.primary {
+    background: var(--color-yellow);
+
+    &::after {
+      background: var(--color-yellow-dark);
+    }
+  }
+
+  &.secondary {
+    width: 52px;
+    height: 52px;
+    padding: 22px 64px 20px;
+    background: var(--color-blue-dark);
+
+    &::after {
+      width: 52px;
+      height: 52px;
+      padding: 22px 64px 20px;
+      background: var(--color-blue-darkest);
+    }
+  }
+
+  &.disabled {
+    background: var(--color-grey);
+
+    &::after {
+      background: var(--color-grey-dark);
+    }
   }
 }
 </style>
