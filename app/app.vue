@@ -14,9 +14,10 @@
   gap: 16px;
 
   width: 100%;
+  max-width: 1250px;
   height: 100dvh;
   padding: 24px;
-
+  margin-inline: auto;
   box-sizing: border-box;
   overflow: hidden;
 

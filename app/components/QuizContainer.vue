@@ -50,14 +50,14 @@ import { mockQuestions } from "~~/server/data/mockQuestions";
 
   .answer-option-grid {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     grid-auto-rows: max-content;
     align-content: start;
-    justify-content: center;
 
-    gap: 32px;
+    gap: 24px 32px;
 
+    min-width: 0;
     min-height: 0;
     overflow-y: auto;
   }
