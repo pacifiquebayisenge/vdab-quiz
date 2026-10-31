@@ -1,12 +1,11 @@
 <template>
-  <button type="button" :disabled="disabled" class="answer-option">
+  <button
+    type="button"
+    :disabled="disabled"
+    :class="[variant, classes, { disabled }]"
+  >
     <div class="button-content">
-      {{ label }}
-    </div>
-  </button>
-
-  <button type="button" :disabled="disabled" class="action-button">
-    <div class="button-content">
+      <div class="icon"></div>
       {{ label }}
     </div>
   </button>
@@ -16,6 +15,8 @@
 defineProps<{
   label: string;
   disabled?: boolean;
+  variant: "answer-option" | "action-button" | "question-timer";
+  classes?: string;
 }>();
 
 defineEmits<{
@@ -25,7 +26,8 @@ defineEmits<{
 
 <style lang="scss" scoped>
 .answer-option,
-.action-button {
+.action-button,
+.question-timer {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -115,23 +117,12 @@ defineEmits<{
     flex-grow: 0;
   }
 
-  &::after {
-    width: 400px;
-    height: 48px;
-    position: absolute;
-    top: 4px;
-    content: "";
-    z-index: -1;
-    border-radius: 8px;
-    background: var(--color-grey);
-  }
+  box-shadow: 0 4px 0 var(--color-grey);
 
   &.primary {
     background: var(--color-yellow);
 
-    &::after {
-      background: var(--color-yellow-dark);
-    }
+    box-shadow: 0 4px 0 var(--color-yellow-dark);
   }
 
   &.secondary {
@@ -140,20 +131,28 @@ defineEmits<{
     padding: 22px 64px 20px;
     background: var(--color-blue-dark);
 
-    &::after {
-      width: 52px;
-      height: 52px;
-      padding: 22px 64px 20px;
-      background: var(--color-blue-darkest);
-    }
+    box-shadow: 0 4px 0 var(--color-blue-darkest);
   }
 
   &.disabled {
     background: var(--color-grey);
 
-    &::after {
-      background: var(--color-grey-dark);
-    }
+    box-shadow: 0 4px 0 var(--color-grey-dark);
+    cursor: not-allowed;
+  }
+}
+
+.question-timer {
+  width: 112px;
+  height: 42.67px;
+  border-radius: 48px;
+  background: var(--color-white);
+  box-shadow: 0 5.33px 0 var(--color-blue-dark);
+  overflow: visible;
+
+  .button-content {
+    font-size: 21.33px;
+    line-height: 26px;
   }
 }
 </style>

@@ -4,6 +4,8 @@
     --color-blue-medium: #2D89CC;
     --color-blue-light: #C2E2FE;
 
+    --color-quiz-container-border: #0C6AAE;
+
     --color-yellow: #FFE200;
     --color-yellow-dark: #E1B827;
 
@@ -48,6 +50,17 @@
 
 
 
+
+
+html,
+body,
+#__nuxt {
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+}
+
 body {
     font-family: "Flanders Art Sans", sans-serif;
+    background: var(--color-blue-dark);
 }
