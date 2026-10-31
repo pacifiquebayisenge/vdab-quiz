@@ -5,8 +5,15 @@
     :class="[variant, classes, { disabled }]"
   >
     <div class="button-content">
-      <div class="icon"></div>
-      {{ label }}
+      <span
+        v-if="$slots.icon && variant !== 'answer-option'"
+        class="button-icon"
+        aria-hidden="true"
+      >
+        <slot name="icon" />
+      </span>
+
+      <span>{{ label }}</span>
     </div>
   </button>
 </template>
@@ -17,6 +24,7 @@ defineProps<{
   disabled?: boolean;
   variant: "answer-option" | "action-button" | "question-timer";
   classes?: string;
+  icon?: string;
 }>();
 
 defineEmits<{
@@ -45,6 +53,28 @@ defineEmits<{
     text-align: center;
     color: var(--color-blue-dark);
     flex: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10.67px;
+
+    .button-icon {
+      font-family: "Font Awesome 5 Pro";
+      font-style: normal;
+      font-weight: 900;
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      color: var(--color-blue-dark);
+
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+    }
   }
 }
 
@@ -153,6 +183,13 @@ defineEmits<{
   .button-content {
     font-size: 21.33px;
     line-height: 26px;
+
+    .button-icon {
+      width: 16px;
+      height: 17.33px;
+      font-size: 17.3333px;
+      line-height: 17px;
+    }
   }
 }
 </style>
