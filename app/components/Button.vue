@@ -13,16 +13,16 @@
         <slot name="icon" />
       </span>
 
-      <span>{{ label }}</span>
+      <span v-if="label">{{ label }}</span>
     </div>
   </button>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  label: string;
+  label?: string;
   disabled?: boolean;
-  variant: "answer-option" | "action-button" | "question-timer";
+  variant: "answer-option" | "action-button" | "question-timer" | "icon-button";
   classes?: string;
   icon?: string;
 }>();
@@ -35,7 +35,8 @@ defineEmits<{
 <style lang="scss" scoped>
 .answer-option,
 .action-button,
-.question-timer {
+.question-timer,
+.icon-button {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -45,6 +46,7 @@ defineEmits<{
   flex: none;
   order: 4;
   flex-grow: 0;
+  cursor: pointer;
 
   .button-content {
     font-family: "Flanders Art Sans", sans-serif;
@@ -90,8 +92,6 @@ defineEmits<{
 
   background: var(--color-blue-light);
 
-  cursor: pointer;
-
   .button-content {
     font-size: 20px;
     line-height: 24px;
@@ -130,10 +130,9 @@ defineEmits<{
 .action-button {
   font-family: "Flanders Art Sans Bold", sans-serif;
 
-  cursor: pointer;
   width: 400px;
   height: 48px;
-  padding: 12px 64px;
+  padding: 12px;
   gap: 12px;
   background: var(--color-white);
   position: relative;
@@ -189,6 +188,18 @@ defineEmits<{
       font-size: 17.3333px;
       line-height: 17px;
     }
+  }
+}
+
+.icon-button {
+  background: var(--color-blue-dark);
+
+  box-shadow: 0 4px 0 var(--color-blue-darkest);
+
+  padding: 10px;
+  height: fit-content;
+  .button-content {
+    color: var(--color-blue-darkest);
   }
 }
 </style>

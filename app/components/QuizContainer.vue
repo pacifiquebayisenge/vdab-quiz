@@ -1,6 +1,6 @@
 <template>
   <div
-    class="quiz-container justify-center grid h-dvh rounded-2xl gap-6 pt-2 pb-15.5"
+    class="quiz-container justify-center grid rounded-2xl gap-6 pt-2 pb-15.5"
   >
     <div class="question-timer flex justify-center">
       <QuestionTime />
@@ -10,7 +10,7 @@
       <h3>{{ mockQuestions[0]?.question }}</h3>
     </div>
 
-    <div class="answer-option-grid h-fit gap-8">
+    <div class="answer-option-grid min-h-0 overflow-y-auto gap-8">
       <Button
         v-for="answerOption in mockQuestions[0]?.answers"
         variant="answer-option"
@@ -18,7 +18,7 @@
       />
     </div>
 
-    <div class="quiz-actions flex justify-center">
+    <div class="action-button flex justify-center">
       <Button label="Klaar!" :disabled="true" variant="action-button" />
     </div>
 
@@ -35,8 +35,9 @@ import { mockQuestions } from "~~/server/data/mockQuestions";
 <style lang="scss" scoped>
 .quiz-container {
   background: var(--color-blue-darkest);
-  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
   border: 10px solid var(--color-quiz-container-border);
+  padding: 8px 48px 68px;
 
   .question {
     font-family: "Flanders Art Sans Bold", sans-serif;
@@ -50,6 +51,15 @@ import { mockQuestions } from "~~/server/data/mockQuestions";
   .answer-option-grid {
     display: grid;
     grid-template-columns: auto auto;
+
+    grid-auto-rows: max-content;
+    align-content: start;
+    justify-content: center;
+
+    gap: 32px;
+
+    min-height: 0;
+    overflow-y: auto;
   }
 }
 </style>
