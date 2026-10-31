@@ -1,5 +1,5 @@
 <template>
-  <Button variant="question-timer" label="0:20">
+  <Button variant="question-timer" :label="label ?? '0:20'">
     <template #icon>
       <svg
         width="15"
@@ -16,3 +16,9 @@
     </template>
   </Button>
 </template>
+
+<script lang="ts" setup>
+defineProps<{
+  label?: string;
+}>();
+</script>

@@ -47,7 +47,7 @@ defineEmits<{
   flex-grow: 0;
 
   .button-content {
-    font-family: "Flanders Art Sans Bold", sans-serif;
+    font-family: "Flanders Art Sans", sans-serif;
     font-style: normal;
     font-weight: 700;
     text-align: center;
@@ -61,7 +61,6 @@ defineEmits<{
     gap: 10.67px;
 
     .button-icon {
-      font-family: "Font Awesome 5 Pro";
       font-style: normal;
       font-weight: 900;
 
