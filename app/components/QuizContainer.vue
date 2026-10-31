@@ -36,8 +36,9 @@ import { mockQuestions } from "~~/server/data/mockQuestions";
 .quiz-container {
   background: var(--color-blue-darkest);
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
-  border: 10px solid var(--color-quiz-container-border);
+  border: 16px solid var(--color-quiz-container-border);
   padding: 8px 48px 68px;
+  border-radius: 24px;
 
   .question {
     font-family: "Flanders Art Sans Bold", sans-serif;

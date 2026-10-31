@@ -1,10 +1,10 @@
 <template>
-  <div class="info-container grid rounded-2xl gap-6 pt-2 pb-4">
+  <div class="info-container grid rounded-2xl gap-6 pb-4">
     <div class="quiz-info">
       <QuizInfo />
     </div>
 
-    <div class="action-buttons flex gap-2 h-fit">
+    <div class="action-buttons flex justify-center gap-2 h-fit">
       <IconButton icon-type="help" />
       <IconButton icon-type="refresh" />
       <IconButton icon-type="mute" />
@@ -25,7 +25,7 @@ import { mockQuestions } from "~~/server/data/mockQuestions";
   overflow: hidden;
   box-sizing: border-box;
   background: var(--color-quiz-container-border);
-  border: 10px solid var(--color-quiz-container-border);
+  border: 16px solid var(--color-quiz-container-border);
 
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) auto;
