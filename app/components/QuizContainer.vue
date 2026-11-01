@@ -17,6 +17,8 @@
         variant="answer-option"
         :label="answer.answer"
         :selected="quizStore.selectedAnswerIds.includes(answer.id)"
+        :status="getAnswerStatus(answer.id)"
+        :disabled="!!quizStore.validationResult || quizStore.isSubmitting"
         @click="quizStore.toggleAnswer(answer.id)"
       />
     </div>
@@ -52,6 +54,22 @@ const quizStore = useQuizStore();
 onMounted(() => {
   quizStore.fetchQuestions();
 });
+
+function getAnswerStatus(answerId: string): "correct" | "wrong" | undefined {
+  const result = quizStore.validationResult;
+
+  if (!result) return undefined;
+
+  if (result.correctAnswerIds.includes(answerId)) {
+    return "correct";
+  }
+
+  if (result.incorrectSelectedIds.includes(answerId)) {
+    return "wrong";
+  }
+
+  return undefined;
+}
 </script>
 
 <style lang="scss" scoped>

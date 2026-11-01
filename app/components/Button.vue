@@ -3,7 +3,7 @@
     type="button"
     :disabled="disabled"
     :aria-pressed="variant === 'answer-option' ? !!selected : undefined"
-    :class="[variant, classes, { disabled, selected }]"
+    :class="[variant, classes, status, { disabled, selected }]"
     @click="emit('click')"
   >
     <div class="button-content">
@@ -31,6 +31,7 @@ defineProps<{
     | "quiz-timer"
     | "icon-button";
   selected?: boolean;
+  status?: "correct" | "wrong";
   classes?: string;
   icon?: string;
 }>();
@@ -121,14 +122,21 @@ const emit = defineEmits<{
     border: 2px solid var(--color-yellow);
   }
 
-  &.correct {
+  &.correct,
+  &.wrong {
     background: var(--color-white);
-    border: 3px solid var(--color-success);
+    border: 3px solid;
+
+    .button-content {
+      color: var(--color-blue-dark);
+    }
+  }
+  &.correct {
+    border-color: var(--color-success);
   }
 
   &.wrong {
-    background: var(--color-white);
-    border: 3px solid var(--color-error);
+    border-color: var(--color-error);
   }
 }
 
