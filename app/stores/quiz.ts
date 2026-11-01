@@ -6,6 +6,9 @@ export const useQuizStore = defineStore("quiz", () => {
   const sessionId = ref<string | null>(null);
   const questions = ref<PublicQuizQuestion[]>([]);
   const currentQuestionIndex = ref(0);
+
+  const selectedAnswerIds = ref<string[]>([]);
+
   const isLoading = ref(false);
   const error = ref<string | null>(null);
 
@@ -18,6 +21,7 @@ export const useQuizStore = defineStore("quiz", () => {
 
   // Actions
   async function fetchQuestions() {
+    selectedAnswerIds.value = [];
     isLoading.value = true;
     error.value = null;
 
@@ -34,6 +38,16 @@ export const useQuizStore = defineStore("quiz", () => {
     }
   }
 
+  function toggleAnswer(answerId: string) {
+    const index = selectedAnswerIds.value.indexOf(answerId);
+
+    if (index === -1) {
+      selectedAnswerIds.value.push(answerId);
+    } else {
+      selectedAnswerIds.value.splice(index, 1);
+    }
+  }
+
   return {
     sessionId,
     questions,
@@ -43,5 +57,7 @@ export const useQuizStore = defineStore("quiz", () => {
     isLoading,
     error,
     fetchQuestions,
+    selectedAnswerIds,
+    toggleAnswer,
   };
 });

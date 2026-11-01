@@ -2,7 +2,9 @@
   <button
     type="button"
     :disabled="disabled"
-    :class="[variant, classes, { disabled }]"
+    :aria-pressed="variant === 'answer-option' ? !!selected : undefined"
+    :class="[variant, classes, { disabled, selected }]"
+    @click="emit('click')"
   >
     <div class="button-content">
       <span
@@ -28,12 +30,13 @@ defineProps<{
     | "question-timer"
     | "quiz-timer"
     | "icon-button";
+  selected?: boolean;
   classes?: string;
   icon?: string;
 }>();
 
-defineEmits<{
-  (e: "click"): void;
+const emit = defineEmits<{
+  click: [];
 }>();
 </script>
 
@@ -50,7 +53,7 @@ defineEmits<{
   border-radius: 8px;
 
   flex: none;
-  order: 4;
+
   flex-grow: 0;
   cursor: pointer;
 
@@ -79,7 +82,7 @@ defineEmits<{
       color: var(--color-blue-dark);
 
       flex: none;
-      order: 0;
+
       flex-grow: 0;
     }
   }
@@ -93,7 +96,7 @@ defineEmits<{
   height: 56px;
 
   flex: none;
-  order: 0;
+
   flex-grow: 0;
 
   background: var(--color-blue-light);
@@ -102,7 +105,6 @@ defineEmits<{
     font-size: 20px;
     line-height: 24px;
 
-    order: 0;
     flex-grow: 1;
   }
 
@@ -117,19 +119,16 @@ defineEmits<{
 
   &.selected {
     border: 2px solid var(--color-yellow);
-    order: 1;
   }
 
   &.correct {
     background: var(--color-white);
     border: 3px solid var(--color-success);
-    order: 0;
   }
 
   &.wrong {
     background: var(--color-white);
     border: 3px solid var(--color-error);
-    order: 1;
   }
 }
 
@@ -147,7 +146,6 @@ defineEmits<{
     font-size: 16px;
     line-height: 24px;
 
-    order: 1;
     flex-grow: 0;
   }
 
@@ -215,7 +213,7 @@ defineEmits<{
     font-size: 16px;
     line-height: 19px;
     flex: none;
-    order: 1;
+
     flex-grow: 0;
   }
 }

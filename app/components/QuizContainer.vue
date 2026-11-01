@@ -12,10 +12,12 @@
 
     <div class="answer-option-grid min-h-0 overflow-y-auto gap-8">
       <Button
-        v-for="answerOption in quizStore.currentQuestion?.answers ?? []"
-        :key="answerOption.id"
+        v-for="answer in quizStore.currentQuestion?.answers ?? []"
+        :key="answer.id"
         variant="answer-option"
-        :label="answerOption.answer"
+        :label="answer.answer"
+        :selected="quizStore.selectedAnswerIds.includes(answer.id)"
+        @click="quizStore.toggleAnswer(answer.id)"
       />
     </div>
 
