@@ -7,12 +7,13 @@
     </div>
 
     <div class="question text-center font-bold">
-      <h3>{{ mockQuestions[0]?.question }}</h3>
+      <h3>{{ quizStore.currentQuestion?.question }}</h3>
     </div>
 
     <div class="answer-option-grid min-h-0 overflow-y-auto gap-8">
       <Button
-        v-for="answerOption in mockQuestions[0]?.answers"
+        v-for="answerOption in quizStore.currentQuestion?.answers ?? []"
+        :key="answerOption.id"
         variant="answer-option"
         :label="answerOption.answer"
       />
@@ -29,7 +30,11 @@
 </template>
 
 <script lang="ts" setup>
-import { mockQuestions } from "~~/server/data/mockQuestions";
+const quizStore = useQuizStore();
+
+onMounted(() => {
+  quizStore.fetchQuestions();
+});
 </script>
 
 <style lang="scss" scoped>

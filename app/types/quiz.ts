@@ -29,6 +29,11 @@ export interface ApiQuizQuestion {
   answers: ApiQuizAnswer[];
 }
 
+export interface ApiQuizData {
+  sessionId: string;
+  questions: PublicQuizQuestion[];
+}
+
 // Answers sent by the client when submitting.
 export interface SubmitAnswersRequest {
   sessionId: string;
