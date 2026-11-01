@@ -1,0 +1,63 @@
+:root {
+    --color-blue-darkest: #0e325b;
+    --color-blue-dark: #004475;
+    --color-blue-medium: #2d89cc;
+    --color-blue-light: #c2e2fe;
+
+    --color-quiz-container-border: #0c6aae;
+
+    --color-yellow: #ffe200;
+    --color-yellow-dark: #e1b827;
+
+    --color-grey: #e3e5e7;
+    --color-grey-dark: #9097a0;
+
+    --color-white: #ffffff;
+
+    --color-background: #252e50;
+
+    --color-success: #17a500;
+    --color-error: #f05535;
+
+    --color-text: #004475;
+
+    --color-black: #000000;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans";
+    src: url("./fonts/FlandersArtSans-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans";
+    src: url("./fonts/FlandersArtSans-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans";
+    src: url("./fonts/FlandersArtSans-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+html,
+body,
+#__nuxt {
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    background: var(--color-blue-dark);
+}
+
+body {
+    font-family: "Flanders Art Sans", sans-serif;
+
+}
