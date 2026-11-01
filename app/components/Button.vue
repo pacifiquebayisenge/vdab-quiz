@@ -22,7 +22,12 @@
 defineProps<{
   label?: string;
   disabled?: boolean;
-  variant: "answer-option" | "action-button" | "question-timer" | "icon-button";
+  variant:
+    | "answer-option"
+    | "action-button"
+    | "question-timer"
+    | "quiz-timer"
+    | "icon-button";
   classes?: string;
   icon?: string;
 }>();
@@ -36,6 +41,7 @@ defineEmits<{
 .answer-option,
 .action-button,
 .question-timer,
+.quiz-timer,
 .icon-button {
   display: flex;
   flex-direction: row;
@@ -191,6 +197,29 @@ defineEmits<{
   }
 }
 
+.quiz-timer {
+  width: 84px;
+  height: 32px;
+  border-radius: 4px;
+
+  background: var(--color-blue-medium);
+  box-shadow: 0 5.33px 0 var(--color-blue-dark);
+
+  .button-content,
+  .button-content .button-icon {
+    color: var(--color-white);
+  }
+
+  .button-content {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+}
+
 .icon-button {
   background: var(--color-blue-dark);
 
@@ -200,6 +229,10 @@ defineEmits<{
   height: fit-content;
   .button-content {
     color: var(--color-blue-darkest);
+
+    .button-icon {
+      color: var(--color-white);
+    }
   }
 }
 </style>
