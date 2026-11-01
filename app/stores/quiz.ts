@@ -16,6 +16,9 @@ export const useQuizStore = defineStore("quiz", () => {
   const validationResult = ref<SubmitAnswersResponse | null>(null);
   const isSubmitting = ref(false);
 
+  const score = ref(0);
+  const isFinished = ref(false);
+
   const isLoading = ref(false);
   const error = ref<string | null>(null);
 
@@ -84,6 +87,22 @@ export const useQuizStore = defineStore("quiz", () => {
     }
   }
 
+  function nextQuestion() {
+    if (!validationResult.value) return;
+
+    if (validationResult.value.isCorrect) {
+      score.value++;
+    }
+
+    if (currentQuestionIndex.value < questions.value.length - 1) {
+      currentQuestionIndex.value++;
+      selectedAnswerIds.value = [];
+      validationResult.value = null;
+    } else {
+      isFinished.value = true;
+    }
+  }
+
   return {
     sessionId,
     questions,
@@ -102,5 +121,9 @@ export const useQuizStore = defineStore("quiz", () => {
     validationResult,
     isSubmitting,
     submitAnswers,
+
+    score,
+    isFinished,
+    nextQuestion,
   };
 });

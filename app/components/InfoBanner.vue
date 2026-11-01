@@ -1,8 +1,11 @@
 <template>
   <div class="info-banner">
-    <div class="top-container flex justify-center flex-row-reverse p-2 gap-2.5">
+    <div class="top-container flex justify-center p-2 gap-2.5">
       <QuizTimer />
-      <QuizLevel />
+      <QuizLevel
+        :level="quizStore.currentQuestionIndex + 1"
+        :total-levels="quizStore.totalQuestions"
+      />
     </div>
 
     <Avatar class="avatar-container" />
@@ -13,7 +16,9 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const quizStore = useQuizStore();
+</script>
 
 <style lang="scss" scoped>
 .info-banner {

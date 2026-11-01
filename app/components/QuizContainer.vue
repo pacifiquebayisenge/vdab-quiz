@@ -25,26 +25,36 @@
 
     <div class="action-button flex justify-center">
       <Button
+        v-if="!quizStore.validationResult"
         label="Klaar!"
         variant="action-button"
         class="primary"
         :disabled="
-          quizStore.selectedAnswerIds.length === 0 ||
-          quizStore.isSubmitting ||
-          !!quizStore.validationResult
+          quizStore.selectedAnswerIds.length === 0 || quizStore.isSubmitting
         "
         @click="quizStore.submitAnswers()"
+      />
+
+      <Button
+        v-else
+        :label="
+          quizStore.currentQuestionIndex === quizStore.totalQuestions - 1
+            ? 'Bekijk resultaat'
+            : 'Doorgaan'
+        "
+        variant="action-button"
+        class="primary"
+        @click="quizStore.nextQuestion()"
       />
     </div>
 
     <div class="help-button flex justify-center">
-      <Button label="Geef me een tip..." variant="action-button" />
+      <Button
+        v-if="!quizStore.validationResult"
+        label="Geef me een tip..."
+        variant="action-button"
+      />
     </div>
-
-    <pre v-if="quizStore.validationResult">
-  {{ quizStore.validationResult }}
-</pre
-    >
   </div>
 </template>
 
