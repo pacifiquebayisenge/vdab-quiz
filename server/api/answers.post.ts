@@ -1,7 +1,6 @@
 import type { SubmitAnswersRequest } from "~/types/quizTypes";
 
 import {
-  findQuestion,
   getAnswerIds,
   validateSubmission,
   getCorrectAnswerIds,

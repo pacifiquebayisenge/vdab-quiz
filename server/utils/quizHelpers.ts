@@ -4,23 +4,6 @@ import type {
   SubmitAnswersResponse,
 } from "~/types/quizTypes";
 
-import { mockQuestions } from "../data/mockQuestions";
-
-// Finds a question using its generated ID.
-export function findQuestion(questionId: string): ApiQuizQuestion {
-  const index = Number(questionId.split("-")[1]) - 1;
-  const question = mockQuestions[index];
-
-  if (!question) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "Question not found",
-    });
-  }
-
-  return question;
-}
-
 // Generates answer IDs using the same format as the GET endpoint.
 export function getAnswerIds(question: ApiQuizQuestion): string[] {
   return question.answers.map((_, index) => `a-${index + 1}`);

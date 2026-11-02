@@ -37,8 +37,13 @@ const dynamicUrl = computed(() => {
 });
 
 function openDynamicUrl() {
-  if (dynamicUrl.value === "") window.location.reload();
+  if (prop.iconType === "refresh") {
+    window.location.reload();
+    return;
+  }
 
-  window.open(dynamicUrl.value, "_blank", "noopener,noreferrer");
+  if (dynamicUrl.value) {
+    window.open(dynamicUrl.value, "_blank", "noopener,noreferrer");
+  }
 }
 </script>

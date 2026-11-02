@@ -28,7 +28,6 @@ defineProps<{
   selected?: boolean;
   status?: "correct" | "wrong";
   classes?: string;
-  icon?: string;
 }>();
 
 const emit = defineEmits<{

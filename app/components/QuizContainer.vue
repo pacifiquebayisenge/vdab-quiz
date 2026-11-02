@@ -27,7 +27,6 @@
 
     <div v-if="quizStore.error" class="flex justify-center">
       <Button
-        v-if="quizStore.error"
         label="Opnieuw proberen"
         variant="action-button"
         class="secondary"
@@ -62,10 +61,10 @@
 
     <div class="help-button flex justify-center">
       <Button
-        v-if="!quizStore.validationResult"
+        v-if="!quizStore.validationResult && quizStore.currentQuestion"
         label="Geef me een tip..."
         variant="action-button"
-        @click="getTip(quizStore.currentQuestion!.question)"
+        @click="getTip(quizStore.currentQuestion.question)"
       />
     </div>
 
@@ -88,13 +87,13 @@
         Je behaalde een {{ quizStore.score }} / {{ quizStore.questions.length }}
       </p>
 
-      <div><img src="/trophy.gif" alt="throphy" srcset="" /></div>
+      <div><img src="/trophy.gif" alt="Trofee" /></div>
 
       <div>
         <Button
           variant="action-button"
           class="primary"
-          label="Opniew"
+          label="Opnieuw"
           @click="reloadPage"
         />
       </div>
