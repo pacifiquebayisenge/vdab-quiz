@@ -38,6 +38,9 @@ export const useQuizStore = defineStore("quiz", () => {
     isLoading.value = true;
     error.value = null;
 
+    score.value = 0;
+    isFinished.value = false;
+
     try {
       const response = await $fetch<ApiQuizData>("/api/questions");
 
@@ -62,7 +65,12 @@ export const useQuizStore = defineStore("quiz", () => {
   }
 
   async function submitAnswers() {
-    if (!sessionId.value || !currentQuestion.value || isSubmitting.value) {
+    if (
+      !sessionId.value ||
+      !currentQuestion.value ||
+      isSubmitting.value ||
+      validationResult.value
+    ) {
       return;
     }
 

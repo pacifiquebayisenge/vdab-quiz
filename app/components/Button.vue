@@ -159,12 +159,12 @@ const emit = defineEmits<{
   }
 
   &.secondary {
-    width: 52px;
-    height: 52px;
-    padding: 22px 64px 20px;
-    background: var(--color-blue-dark);
+    background: var(--color-blue-medium);
+    box-shadow: 0 4px 0 var(--color-blue-dark);
 
-    box-shadow: 0 4px 0 var(--color-blue-darkest);
+    .button-content {
+      color: var(--color-white);
+    }
   }
 
   &.disabled {

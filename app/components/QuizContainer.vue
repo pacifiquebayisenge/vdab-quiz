@@ -1,10 +1,11 @@
 <template>
+  <!-- Quiz questions game page  -->
   <div
     v-if="!quizStore.isFinished"
     class="quiz-container justify-center grid rounded-2xl gap-6 pt-2 pb-15.5"
   >
     <div class="question-timer flex justify-center">
-      <QuestionTime :time="timeLimit" />
+      <QuestionTimer :time="timeLimit" />
     </div>
 
     <div class="question text-center font-bold">
@@ -24,7 +25,17 @@
       />
     </div>
 
-    <div class="action-button flex justify-center">
+    <div v-if="quizStore.error" class="flex justify-center">
+      <Button
+        v-if="quizStore.error"
+        label="Opnieuw proberen"
+        variant="action-button"
+        class="secondary"
+        @click="reloadPage()"
+      />
+    </div>
+
+    <div v-else class="action-button flex justify-center">
       <Button
         v-if="!quizStore.validationResult"
         label="Klaar!"
@@ -56,8 +67,13 @@
         variant="action-button"
       />
     </div>
+
+    <p v-if="quizStore.error" role="alert" class="quiz-error text-center">
+      {{ quizStore.error }}
+    </p>
   </div>
 
+  <!-- Quiz result page  -->
   <div v-else class="quiz-results rounded-2xl pt-2 pb-15.5">
     <div
       class="result-title flex flex-col justify-between items-center h-full text-center font-bold"
@@ -74,13 +90,20 @@
       <div><img src="/trophy.gif" alt="throphy" srcset="" /></div>
 
       <div>
-        <Button variant="action-button" class="primary" label="Opniew" />
+        <Button
+          variant="action-button"
+          class="primary"
+          label="Opniew"
+          @click="reloadPage"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import QuestionTimer from "./QuestionTimer.vue";
+
 const quizStore = useQuizStore();
 
 onMounted(() => {
@@ -107,7 +130,12 @@ function getAnswerStatus(answerId: string): "correct" | "wrong" | undefined {
   return undefined;
 }
 
-// Start a new countdown whenever the current question changes.
+// Reload  page to start  new quiz.
+function reloadPage() {
+  window.location.reload();
+}
+
+// Start a new countdown whenever  current question changes.
 watch(
   () => quizStore.currentQuestion?.id,
   () => {
@@ -120,7 +148,15 @@ watch(
   { immediate: true },
 );
 
-// Stop the countdown once the answers have been validated.
+// Stop  timer while submitting answers.
+watch(
+  () => quizStore.isSubmitting,
+  (submitting) => {
+    if (submitting) stop();
+  },
+);
+
+// Stop countdown once  answers have been validated.
 watch(
   () => quizStore.validationResult,
   (result) => {
@@ -139,13 +175,18 @@ watch(
   border-radius: 24px;
 
   .question,
-  .result-title {
+  .result-title,
+  .quiz-error {
     font-family: "Flanders Art Sans Bold", sans-serif;
     font-style: normal;
     font-weight: 700;
     color: var(--color-white);
     font-size: 24px;
     line-height: 29px;
+  }
+
+  .quiz-error {
+    color: var(--color-error);
   }
 
   .answer-option-grid {
