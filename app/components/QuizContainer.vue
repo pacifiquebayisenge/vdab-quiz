@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!quizStore.isFinished"
     class="quiz-container justify-center grid rounded-2xl gap-6 pt-2 pb-15.5"
   >
     <div class="question-timer flex justify-center">
@@ -56,6 +57,27 @@
       />
     </div>
   </div>
+
+  <div v-else class="quiz-results rounded-2xl pt-2 pb-15.5">
+    <div
+      class="result-title flex flex-col justify-between items-center h-full text-center font-bold"
+    >
+      <h3 class="pt-10">
+        VDAB QUIZ <br />
+        Resultaat
+      </h3>
+
+      <p class="">
+        Je behaalde een {{ quizStore.score }} / {{ quizStore.questions.length }}
+      </p>
+
+      <div><img src="/trophy.gif" alt="throphy" srcset="" /></div>
+
+      <div>
+        <Button variant="action-button" class="primary" label="Opniew" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -108,14 +130,16 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.quiz-container {
+.quiz-container,
+.quiz-results {
   background: var(--color-blue-darkest);
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
   border: 16px solid var(--color-quiz-container-border);
   padding: 8px 48px 68px;
   border-radius: 24px;
 
-  .question {
+  .question,
+  .result-title {
     font-family: "Flanders Art Sans Bold", sans-serif;
     font-style: normal;
     font-weight: 700;
