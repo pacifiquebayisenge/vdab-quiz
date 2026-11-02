@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",
-    "sass": "^1.107.0"
+    "sass": "^1.107.0",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.14"
   }
 }
