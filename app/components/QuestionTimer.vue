@@ -1,15 +1,15 @@
 <template>
-  <Button variant="question-timer" :label="label ?? '0:20'">
+  <Timer variant="question-timer" :label="time.toString() ?? '0:00'">
     <template #icon>
       <StopWatchIcon />
     </template>
-  </Button>
+  </Timer>
 </template>
 
 <script lang="ts" setup>
 import StopWatchIcon from "./icons/StopWatchIcon.vue";
 
 defineProps<{
-  label?: string;
+  time: number;
 }>();
 </script>

@@ -1,9 +1,7 @@
 <template>
-  <Button variant="quiz-timer" :label="label ?? '42:32'">
-    <template #icon>
-      <StopWatchIcon />
-    </template>
-  </Button>
+  <Timer variant="quiz-timer" :label="label ?? '42:32'">
+    <template #icon><StopWatchIcon /></template
+  ></Timer>
 </template>
 
 <script lang="ts" setup>
