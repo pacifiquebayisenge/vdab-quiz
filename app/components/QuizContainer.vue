@@ -3,7 +3,7 @@
     class="quiz-container justify-center grid rounded-2xl gap-6 pt-2 pb-15.5"
   >
     <div class="question-timer flex justify-center">
-      <QuestionTime />
+      <QuestionTime :time="timeLimit" />
     </div>
 
     <div class="question text-center font-bold">
@@ -65,6 +65,10 @@ onMounted(() => {
   quizStore.fetchQuestions();
 });
 
+const { timeLimit, start, stop } = useQuestionTimer(() => {
+  quizStore.submitAnswers();
+});
+
 function getAnswerStatus(answerId: string): "correct" | "wrong" | undefined {
   const result = quizStore.validationResult;
 
@@ -80,6 +84,27 @@ function getAnswerStatus(answerId: string): "correct" | "wrong" | undefined {
 
   return undefined;
 }
+
+// Start a new countdown whenever the current question changes.
+watch(
+  () => quizStore.currentQuestion?.id,
+  () => {
+    if (quizStore.currentQuestion && !quizStore.isFinished) {
+      start(quizStore.currentQuestion.time_limit_s);
+    } else {
+      stop();
+    }
+  },
+  { immediate: true },
+);
+
+// Stop the countdown once the answers have been validated.
+watch(
+  () => quizStore.validationResult,
+  (result) => {
+    if (result) stop();
+  },
+);
 </script>
 
 <style lang="scss" scoped>

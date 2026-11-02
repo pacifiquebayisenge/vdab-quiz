@@ -24,12 +24,7 @@
 defineProps<{
   label?: string;
   disabled?: boolean;
-  variant:
-    | "answer-option"
-    | "action-button"
-    | "question-timer"
-    | "quiz-timer"
-    | "icon-button";
+  variant: "answer-option" | "action-button" | "icon-button";
   selected?: boolean;
   status?: "correct" | "wrong";
   classes?: string;
@@ -44,8 +39,6 @@ const emit = defineEmits<{
 <style lang="scss" scoped>
 .answer-option,
 .action-button,
-.question-timer,
-.quiz-timer,
 .icon-button {
   display: flex;
   flex-direction: row;
@@ -179,50 +172,6 @@ const emit = defineEmits<{
 
     box-shadow: 0 4px 0 var(--color-grey-dark);
     cursor: not-allowed;
-  }
-}
-
-.question-timer {
-  width: 112px;
-  height: 42.67px;
-  border-radius: 48px;
-  background: var(--color-white);
-  box-shadow: 0 5.33px 0 var(--color-blue-dark);
-  overflow: visible;
-
-  .button-content {
-    font-size: 21.33px;
-    line-height: 26px;
-
-    .button-icon {
-      width: 16px;
-      height: 17.33px;
-      font-size: 17.3333px;
-      line-height: 17px;
-    }
-  }
-}
-
-.quiz-timer {
-  width: 84px;
-  height: 32px;
-  border-radius: 4px;
-
-  background: var(--color-blue-medium);
-  box-shadow: 0 5.33px 0 var(--color-blue-dark);
-
-  .button-content,
-  .button-content .button-icon {
-    color: var(--color-white);
-  }
-
-  .button-content {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
-    flex: none;
-
-    flex-grow: 0;
   }
 }
 
