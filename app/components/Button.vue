@@ -58,11 +58,19 @@ const emit = defineEmits<{
     color: var(--color-blue-dark);
     flex: none;
 
+    min-width: 0;
+    max-width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     gap: 10.67px;
+
+    > span {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
 
     .button-icon {
       font-style: normal;
@@ -85,7 +93,11 @@ const emit = defineEmits<{
   padding: 16px 32px;
   gap: 26px;
 
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  min-width: 0;
+  box-sizing: border-box;
+
   height: 56px;
 
   flex: none;
@@ -135,7 +147,10 @@ const emit = defineEmits<{
 .action-button {
   font-family: "Flanders Art Sans Bold", sans-serif;
 
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
+  min-width: 0;
+  box-sizing: border-box;
   height: 48px;
   padding: 12px;
   gap: 12px;
@@ -187,6 +202,38 @@ const emit = defineEmits<{
     .button-icon {
       color: var(--color-white);
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .answer-option {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+
+    height: auto;
+    min-height: 56px;
+    padding: 12px 16px;
+
+    .button-content {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  .action-button {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    height: auto;
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+
+  .icon-button {
+    width: auto;
+    flex-shrink: 0;
   }
 }
 </style>

@@ -22,8 +22,15 @@ const quizStore = useQuizStore();
 
 <style lang="scss" scoped>
 .info-banner {
-  background: var(--color-blue-darkest);
   position: relative;
+  background: var(--color-blue-darkest);
+  height: 220px;
+
+  .background-image {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
 
   .banner-image {
     display: block;
@@ -35,16 +42,63 @@ const quizStore = useQuizStore();
 
   .top-container {
     position: absolute;
-    z-index: 1;
+    top: 0;
+    left: 0;
+    z-index: 2;
     width: 100%;
+    min-width: 0;
+    align-items: center;
   }
 
   .avatar-container {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  // Tablet
+  @media (max-width: 1024px) {
+    height: 180px;
+
+    .top-container {
+      gap: 8px;
+    }
+  }
+
+  // Mobile
+  @media (max-width: 767px) {
+    height: 140px;
+
+    .top-container {
+      padding: 8px;
+      gap: 8px;
+    }
+
+    .avatar-container {
+      bottom: -30px;
+    }
+  }
+
+  // Small mobile
+  @media (max-width: 375px) {
+    height: 120px;
+
+    .top-container {
+      gap: 4px;
+      padding: 6px;
+    }
+
+    .avatar-container {
+      bottom: -25px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    padding-top: 40px;
   }
 }
 </style>

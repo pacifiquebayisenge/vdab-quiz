@@ -2,7 +2,7 @@
   <!-- Quiz questions game page  -->
   <div
     v-if="!quizStore.isFinished"
-    class="quiz-container justify-center grid rounded-2xl gap-6 pt-2 pb-15.5"
+    class="quiz-container grid w-full min-w-0 gap-6"
   >
     <div class="question-timer flex justify-center">
       <QuestionTimer :time="timeLimit" />
@@ -12,7 +12,7 @@
       <h3>{{ quizStore.currentQuestion?.question }}</h3>
     </div>
 
-    <div class="answer-option-grid min-h-0 overflow-y-auto gap-8">
+    <div class="answer-option-grid">
       <Button
         v-for="answer in quizStore.currentQuestion?.answers ?? []"
         :key="answer.id"
@@ -74,7 +74,7 @@
   </div>
 
   <!-- Quiz result page  -->
-  <div v-else class="quiz-results rounded-2xl pt-2 pb-15.5">
+  <div v-else class="quiz-results w-full min-w-0">
     <div
       class="result-title flex flex-col justify-between items-center h-full text-center font-bold"
     >
@@ -87,7 +87,9 @@
         Je behaalde een {{ quizStore.score }} / {{ quizStore.questions.length }}
       </p>
 
-      <div><img src="/trophy.gif" alt="Trofee" /></div>
+      <div>
+        <img src="/trophy.gif" alt="Trofee" class="max-w-full h-auto" />
+      </div>
 
       <div>
         <Button
@@ -211,17 +213,19 @@ watch(
 <style lang="scss" scoped>
 .quiz-container,
 .quiz-results {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
   background: var(--color-blue-darkest);
-  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
   border: 16px solid var(--color-quiz-container-border);
-  padding: 8px 48px 68px;
   border-radius: 24px;
+  padding: 8px 48px 68px;
 
   .question,
   .result-title,
   .quiz-error {
     font-family: "Flanders Art Sans Bold", sans-serif;
-    font-style: normal;
     font-weight: 700;
     color: var(--color-white);
     font-size: 24px;
@@ -231,19 +235,113 @@ watch(
   .quiz-error {
     color: var(--color-error);
   }
+}
+
+.quiz-container {
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
 
   .answer-option-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
     grid-auto-rows: max-content;
     align-content: start;
 
-    gap: 24px 32px;
-
+    width: 100%;
     min-width: 0;
     min-height: 0;
+
+    gap: 24px 32px;
     overflow-y: auto;
+
+    > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
+  .action-button,
+  .help-button {
+    min-width: 0;
+  }
+}
+
+// Tablet
+@media (max-width: 1024px) {
+  .quiz-container,
+  .quiz-results {
+    border-width: 10px;
+    padding: 20px 24px 36px;
+  }
+
+  .quiz-container {
+    .answer-option-grid {
+      gap: 16px;
+    }
+  }
+}
+
+// Mobile
+@media (max-width: 767px) {
+  .quiz-container,
+  .quiz-results {
+    height: auto;
+    border-width: 6px;
+    border-radius: 16px;
+    padding: 20px 16px 28px;
+  }
+
+  .quiz-container {
+    grid-template-rows: auto;
+    gap: 16px;
+
+    .question,
+    .quiz-error {
+      font-size: 20px;
+      line-height: 26px;
+      overflow-wrap: anywhere;
+    }
+
+    .answer-option-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      overflow: visible;
+      margin-bottom: 30px;
+    }
+
+    .action-button,
+    .help-button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  .quiz-results {
+    .result-title {
+      height: auto;
+      gap: 24px;
+      font-size: 20px;
+      line-height: 26px;
+    }
+
+    img {
+      max-width: 180px;
+      height: auto;
+    }
+  }
+}
+
+// Small mobile
+@media (max-width: 375px) {
+  .quiz-container,
+  .quiz-results {
+    padding: 16px 10px 24px;
+  }
+
+  .quiz-container {
+    .question {
+      font-size: 18px;
+      line-height: 24px;
+    }
   }
 }
 </style>
