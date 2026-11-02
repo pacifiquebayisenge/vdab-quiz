@@ -2,7 +2,7 @@ import type {
   ApiQuizQuestion,
   SubmitAnswersRequest,
   SubmitAnswersResponse,
-} from "~~/app/types/quiz";
+} from "~/types/quizTypes";
 
 import { mockQuestions } from "../data/mockQuestions";
 
