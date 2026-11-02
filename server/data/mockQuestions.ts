@@ -1,4 +1,4 @@
-import type { ApiQuizQuestion } from "~~/app/types/quiz";
+import type { ApiQuizQuestion } from "~/types/quizTypes";
 
 // Mock quiz questions used during development and testing.
 // Includes both single-answer and multiple-answer scenarios.

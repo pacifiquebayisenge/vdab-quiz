@@ -27,7 +27,6 @@
 
     <div v-if="quizStore.error" class="flex justify-center">
       <Button
-        v-if="quizStore.error"
         label="Opnieuw proberen"
         variant="action-button"
         class="secondary"
@@ -62,9 +61,10 @@
 
     <div class="help-button flex justify-center">
       <Button
-        v-if="!quizStore.validationResult"
+        v-if="!quizStore.validationResult && quizStore.currentQuestion"
         label="Geef me een tip..."
         variant="action-button"
+        @click="getTip(quizStore.currentQuestion.question)"
       />
     </div>
 
@@ -87,13 +87,13 @@
         Je behaalde een {{ quizStore.score }} / {{ quizStore.questions.length }}
       </p>
 
-      <div><img src="/trophy.gif" alt="throphy" srcset="" /></div>
+      <div><img src="/trophy.gif" alt="Trofee" /></div>
 
       <div>
         <Button
           variant="action-button"
           class="primary"
-          label="Opniew"
+          label="Opnieuw"
           @click="reloadPage"
         />
       </div>
@@ -103,8 +103,10 @@
 
 <script lang="ts" setup>
 import QuestionTimer from "./QuestionTimer.vue";
+import confetti from "canvas-confetti";
 
 const quizStore = useQuizStore();
+const config = useRuntimeConfig();
 
 onMounted(() => {
   quizStore.fetchQuestions();
@@ -135,6 +137,13 @@ function reloadPage() {
   window.location.reload();
 }
 
+// Get tip
+function getTip(query: string) {
+  const url = `${config.public.tipUrl}${encodeURIComponent(query)}`;
+
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 // Start a new countdown whenever  current question changes.
 watch(
   () => quizStore.currentQuestion?.id,
@@ -161,6 +170,40 @@ watch(
   () => quizStore.validationResult,
   (result) => {
     if (result) stop();
+  },
+);
+
+function launchConfetti() {
+  const defaults = {
+    particleCount: 4000,
+    spread: 1000,
+    startVelocity: 55,
+    gravity: 0.6,
+    ticks: 400,
+  };
+
+  confetti({
+    ...defaults,
+    origin: { x: 0, y: 0.4 },
+    angle: 60,
+    shapes: ["circle", "circle", "square"],
+  });
+
+  confetti({
+    ...defaults,
+    origin: { x: 1, y: 0.4 },
+    angle: 120,
+    shapes: ["circle", "circle", "square"],
+  });
+}
+
+// Launch confetti when the quiz is finished.
+watch(
+  () => quizStore.isFinished,
+  (finished) => {
+    if (!finished) return;
+
+    launchConfetti();
   },
 );
 </script>

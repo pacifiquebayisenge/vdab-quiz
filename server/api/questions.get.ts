@@ -1,4 +1,4 @@
-import type { ApiQuizQuestion, PublicQuizQuestion } from "~~/app/types/quiz";
+import type { ApiQuizQuestion, PublicQuizQuestion } from "~/types/quizTypes";
 import { saveQuizSession } from "../utils/quizSession";
 import { v4 as uuid } from "uuid";
 

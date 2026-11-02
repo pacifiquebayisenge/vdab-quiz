@@ -12,6 +12,12 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     quizApiUrl: "",
+    public: {
+      mapUrl: "",
+      helpUrl: "",
+      muteUrl: "",
+      tipUrl: "",
+    },
   },
 
   vite: {

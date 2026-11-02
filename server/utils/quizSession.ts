@@ -1,4 +1,4 @@
-import type { ApiQuizQuestion } from "~~/app/types/quiz";
+import type { ApiQuizQuestion } from "~/types/quizTypes";
 
 // Saves the original quiz questions on the server.
 
